@@ -1,0 +1,133 @@
+@charset "UTF-8";
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+	margin: 0;
+	font-family: 'Nanum Pen Script', cursive;
+	background-color: #f1f2f6;
+}
+
+:root {
+    --text-color: #eee;
+    --background-color: #4b4b4b;
+    --accent-color: #d49466;
+}
+
+header {
+	margin: 0;
+	font-family: 'Black Han Sans', sans-serif !important;
+}
+
+a{
+    text-decoration: none;
+    color:var(--text-color) !important;
+}
+#navbar {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--background-color) !important;
+    padding: 8px 16px;
+    transition: background 0.4s;
+}
+
+#navbar .navbar_logo {
+    display: flex;
+    font-size: 24px;
+    color: var(--text-color) !important;
+    padding: 8px 16px;
+}
+
+.navbar_logo img {
+    height: 64px;
+    transition: height 0.4s;
+}
+
+.navbar_menu {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+}
+
+.navbar_menu li {
+    padding: 8px 16px;
+}
+
+.navbar_menu li:hover {
+    background-color: var(--accent-color) !important;
+    border-radius: 6px;
+}
+
+.navbar_icons {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+    color: var(--text-color) !important;
+}
+
+.navbar_icons li {
+    padding: 8px 16px;
+}
+
+.navbar_toggleBtn {
+    display: none;
+    position: absolute;
+    right: 32px;
+    font-size: 24px;
+    color: var(--accent-color) !important;
+}
+
+@media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 8px 24px;
+    }
+    .navbar_menu{
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .navbar_menu li {
+        width:100%;
+        text-align: center;
+    }
+    .navbar_icons {
+        display: none;
+        justify-content: center;
+        width: 100%;
+    }
+    .navbar_toggleBtn {
+        display: block;
+    }
+    .navbar_menu.active,
+    .navbar_icons.active {
+        display: flex;
+    }
+}
+
+.bg-black {
+    background-color: var(--background-color) !important;
+    opacity: 0.5;
+}
+
+.txt-white a {
+    color: #eee !important;
+}
+
+footer {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    color: pink;
+}

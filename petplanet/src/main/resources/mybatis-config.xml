@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+	<!-- TypeAliases는 매핑파일에서 지정하는 자바 클래스에 대한 별칭을 할당하는 기능 -->
+  <typeAliases>
+        <typeAlias type="org.petplanet.web.domain.member.MemberVO" alias="memberVO" />
+        <typeAlias type="org.petplanet.web.domain.find.FindVO" alias="findVO" />
+  </typeAliases>   
+</configuration>

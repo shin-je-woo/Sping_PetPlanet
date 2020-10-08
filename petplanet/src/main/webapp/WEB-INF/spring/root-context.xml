@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- 커넥션 풀을 지원하는 데이터 소스 빈 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/petplanet?useSSL=false&amp;serverTimezone=UTC" />
+		<property name="username" value="spring" />
+		<property name="password" value="passwd" />
+		<property name="maxActive" value="5" />
+	</bean>
+	
+	<!-- 스프링의 트랜잭션 관리자 빈 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean> 
+	
+	<!-- MyBatis의 SqlSessionFactory 빈 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+     	<property name="dataSource" ref="dataSource"></property>
+     	<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
+      	<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property>  
+	</bean>
+	
+	<!-- MyBatis-Spring의 SqlSessionTemplate 빈 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+	
+	<!-- 회원가입 메일 인증 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com"/>
+		<property name="port" value="587"/>
+		<property name="username" value="shinjw0926@gmail.com"/>
+		<property name="password" value="godqhr1492!"/>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transprot.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop> 
+			</props>
+		</property>
+	</bean>
+	
+	<context:component-scan base-package="org.petplanet.web.service" />
+	<context:component-scan base-package="org.petplanet.web.persistence" />
+		
+</beans>
